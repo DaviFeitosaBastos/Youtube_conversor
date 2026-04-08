@@ -1,0 +1,46 @@
+# Python
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+
+venv/
+.env/
+.env.*
+
+# Distribution / packaging
+
+build/
+dist/
+*.spec
+
+# Logs
+
+*.log
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# IDEs / Editors
+
+.vscode/
+.idea/
+
+# Media files (your app outputs)
+
+audios/
+videos/
+
+# Temporary / cache
+
+*.tmp
+*.cache
+
+# Misc
+
+*.bak
+*.swp
