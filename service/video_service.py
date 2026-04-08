@@ -11,8 +11,6 @@ def get_base_dir():
         return Path(sys.executable).parent
     return Path(__file__).parent.parent
 
-
-
 FOLDER = get_base_dir() / "videos"
 FOLDER.mkdir(exist_ok=True)
 
