@@ -2,14 +2,7 @@ from ui.display import clear, cli, sleep
 from ui.validation import url_validate, yes_or_not
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
-from rich.console import Console
-from pathlib import Path
-import sys
-
-def get_base_dir():
-    if hasattr(sys, '_MEIPASS'):
-        return Path(sys.executable).parent
-    return Path(__file__).parent.parent
+from utils import get_base_dir
 
 FOLDER = get_base_dir() / "videos"
 FOLDER.mkdir(exist_ok=True)
@@ -34,7 +27,7 @@ def download_high_res(url: str):
     """Downloads the highest resolution video."""
     yt = YouTube(url, on_progress_callback=on_progress)
     stream = yt.streams.get_highest_resolution()
-    video_path = FOLDER / stream.default_filename
+    video_path = get_base_dir() / stream.default_filename
 
     if video_path.exists():
         clear()
