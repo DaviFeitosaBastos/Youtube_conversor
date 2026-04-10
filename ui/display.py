@@ -66,7 +66,12 @@ def headers(header: str) -> None:
         cli.print("[yellow]=[/yellow]" * 32)
         cli.print(f"[yellow]{header.center(32)}[/yellow]" )
         cli.print("[yellow]=[/yellow]" * 32)
-        
+
+    elif header == "GIF Converter":
+        cli.print("[cyan]=[/cyan]" * 32)
+        cli.print(f"[cyan]{header.center(32)}[/cyan]")
+        cli.print("[cyan]=[/cyan]" * 32)
+            
     elif header == "Main menu":
         cli.print("[green]=[/green]" * 32)
         cli.print(f"[green]{header.center(32)}[/green]" )
@@ -77,6 +82,7 @@ def headers(header: str) -> None:
 def main_menu():
     cli.print("[green]1 - Download videos from[/green] [red][YOUTUBE][/red]")
     cli.print("[green]2 - Get the audio tack from[/green] [red][YOUTUBE][/red]")
+    cli.print("[green]3 - Convert MP4 to GIF[/green]")
     cli.print("[green]0 -[/green] [red]Exit[/red]")
 
 
