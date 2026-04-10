@@ -2,11 +2,18 @@ from ui.display import cli, clear, sleep, headers
 from ui.validation import yes_or_not, get_int_input, url_validate
 from service.video_service import download_high_res, download_low_res, get_video_info
 from service.track_service import download_track_youtube
+from service.gif_service import convert_mp4_to_gif
+from ui.validation import pick_file
+from utils import get_base_dir
+
+
+
 
 
 
 HEADER1 = "Video Download"
 HEADER2 = "Track Download"
+HEADER3 = "GIF Converter"
 
 def videos_downloader_menu():
     """
@@ -94,10 +101,44 @@ def tracks_downloader_menu():
             if url_validate(url):
                 handler(url)
 
+def gif_converter_menu():
+    sub_routes = {
+        1: convert_mp4_to_gif,
+    }
+
+    while True:
+        clear()
+        headers(HEADER3)
+        cli.print("[cyan]1 - Convert MP4 to GIF[/cyan]")
+        cli.print("[cyan]0 - Back to main menu[/cyan]")
+
+        choice = get_int_input()
+
+        if choice is None:
+            continue
+        elif choice not in [1, 0]:
+            cli.print("[red]Invalid option![/red]")
+            sleep(0.5)
+            continue
+
+        if choice == 0:
+            clear()
+            if yes_or_not("Wanna go back [Y/N]: "):
+                break
+            continue
+
+        handler = sub_routes.get(choice)
+        if handler:
+            folder = get_base_dir() / "videos"
+            path = pick_file(folder, ".mp4")
+            if path:
+                handler(str(path))
+
 # Route map: menu option -> handler function
 routes = {
     1: videos_downloader_menu,  # Video downloader
-    2: tracks_downloader_menu  # Track downloader
+    2: tracks_downloader_menu,  # Track downloader
+    3: gif_converter_menu,
 }
 
 if __name__ == "__main__":
