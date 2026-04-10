@@ -1,13 +1,14 @@
 # Youtube Conversor
 
-A Python CLI tool for downloading YouTube videos and audio tracks directly from the terminal, with a clean menu-driven interface powered by Rich.
+A Python CLI tool for downloading YouTube videos, audio tracks, and converting MP4 files to GIF directly from the terminal, with a clean menu-driven interface powered by Rich.
 
 ---
 
 ## Features
 
 - Download YouTube videos in **high or low resolution**
-- Download **audio tracks** from YouTube
+- Download **audio tracks** from YouTube as MP3
+- Convert **MP4 videos to GIF** with customizable settings (FPS, resolution, trim)
 - View **video metadata** before downloading
 - Interactive menu with URL validation
 - Clean terminal UI using Rich
@@ -20,28 +21,45 @@ A Python CLI tool for downloading YouTube videos and audio tracks directly from 
 Youtube_conversor/
 ├── main.py               # Application entry point
 ├── router.py             # Menu routing and navigation logic
+├── utils.py              # Shared utilities (get_base_dir)
 ├── requirements.txt
 ├── __init__.py
 ├── service/
 │   ├── video_service.py  # Video download logic (high res, low res, info)
-│   └── track_service.py  # Audio track download logic
+│   ├── track_service.py  # Audio track download logic
+│   └── gif_service.py    # MP4 to GIF conversion logic
 └── ui/
     ├── display.py        # CLI display helpers (headers, menus, loading)
-    └── validation.py     # Input validation (URL, integers, yes/no)
+    └── validation.py     # Input validation (URL, integers, yes/no, file picker)
 ```
 
 ---
 
-## Requirements
+## Development Setup
 
-- Python 3.10+
-- ffmpeg installed and available in PATH
+**Create and activate a virtual environment:**
 
-Install dependencies:
+```bash
+python -m venv venv
+
+# Linux
+source venv/bin/activate
+
+# Windows
+venv\Scripts\Activate
+```
+
+**Install dependencies:**
 
 ```bash
 pip install -r requirements.txt
 ```
+
+> Make sure `ffmpeg` is installed on your system and available in PATH.
+>
+> Linux: `sudo apt install ffmpeg`
+>
+> Windows: https://ffmpeg.org/download.html
 
 ---
 
@@ -59,10 +77,40 @@ Navigate using the numbered options:
 ================================
 1 - Download videos from [YOUTUBE]
 2 - Get the audio track from [YOUTUBE]
+3 - Convert MP4 to GIF
 0 - Exit
 ```
 
-After selecting an option, paste the YouTube URL when prompted.
+After selecting an option, follow the prompts in the terminal.
+
+---
+
+## Output Folders
+
+All files are saved automatically on first run:
+
+| Folder | Content |
+|---|---|
+| `videos/` | Downloaded MP4 videos |
+| `audios/` | Downloaded MP3 tracks |
+| `gifs/` | Converted GIF files |
+
+---
+
+## Building the Executable
+
+```bash
+pyinstaller --onefile --paths . main.py
+```
+
+> The executable will be generated in the `dist/` folder.
+> The `videos/`, `audios/`, and `gifs/` folders are created automatically on first run alongside the executable.
+
+To rebuild, clean the previous build first:
+
+```bash
+rm -rf build/ dist/ main.spec
+```
 
 ---
 
@@ -72,11 +120,8 @@ After selecting an option, paste the YouTube URL when prompted.
 |---|---|
 | `pytubefix` | YouTube video/audio downloading |
 | `yt-dlp` | Alternative download backend |
-| `ffmpeg-python` | Media processing |
+| `ffmpeg-python` | MP4 to GIF conversion |
 | `rich` | Terminal UI styling |
-| `PyMuPDF` | PDF handling |
-| `pdf2docx` | Document conversion |
-| `opencv-python-headless` | Image/video processing |
 
 ---
 
@@ -84,7 +129,6 @@ After selecting an option, paste the YouTube URL when prompted.
 
 - This tool is intended for personal use only.
 - Respect YouTube's Terms of Service when downloading content.
-- Make sure `ffmpeg` is installed on your system for media processing to work correctly.
 
 ---
 
