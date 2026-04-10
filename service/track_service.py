@@ -4,15 +4,7 @@ from pytubefix import YouTube
 from pytubefix.cli import on_progress
 from ui.display import cli, sleep, clear
 from ui.validation import yes_or_not
-from pathlib import Path
-import sys
-
-
-def get_base_dir():
-    if hasattr(sys, '_MEIPASS'):
-        # Quando rodando como executável PyInstaller
-        return Path(sys.executable).parent
-    return Path(__file__).parent.parent
+from utils import get_base_dir 
 
 BASE_DIR = get_base_dir()
 FOLDER = BASE_DIR / "audios"
