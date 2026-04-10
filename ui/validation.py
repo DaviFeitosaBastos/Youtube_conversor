@@ -93,6 +93,31 @@ def validate_path(path: str) -> bool:
         cli.print("[red]This path doesn't exist[/red]")
         sleep(0.6)
 
+def pick_file(folder: Path, extension: str) -> Path | None:
+    """
+    Lists files with the given extension in the folder and lets the user pick one.
+    """
+    files = list(folder.glob(f"*{extension}"))
+
+    if not files:
+        cli.print(f"[red]No {extension} files found in {folder}[/red]")
+        sleep(0.6)
+        return None
+
+    cli.print(f"\n[bold]Available {extension} files:[/bold]")
+    for i, file in enumerate(files, start=1):
+        cli.print(f"[cyan]{i} - {file.name}[/cyan]")
+
+    while True:
+        try:
+            choice = int(input("\nChoice: "))
+            if 1 <= choice <= len(files):
+                return files[choice - 1]
+            cli.print("[red]Invalid option![/red]")
+            sleep(0.5)
+        except ValueError:
+            cli.print("[red]Invalid input! Please enter a number.[/red]")
+            sleep(0.5)
             
 
 if __name__ == "__main__":
