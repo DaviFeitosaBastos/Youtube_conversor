@@ -23,7 +23,7 @@ def main():
 
         if choice == None:
             continue
-        elif not choice in [1,2,0]:
+        elif not choice in [1, 2, 3, 0]:
             cli.print("[red]Invalid option![/red]")
             sleep(0.5)
             continue
