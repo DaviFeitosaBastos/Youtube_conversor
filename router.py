@@ -6,11 +6,6 @@ from service.gif_service import convert_mp4_to_gif
 from ui.validation import pick_file
 from utils import get_base_dir
 
-
-
-
-
-
 HEADER1 = "Video Download"
 HEADER2 = "Track Download"
 HEADER3 = "GIF Converter"
