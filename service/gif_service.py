@@ -2,7 +2,9 @@ from ui.display import clear, cli, sleep
 from ui.validation import yes_or_not, validate_path
 from pathlib import Path
 import ffmpeg
-from utils import get_base_dir
+from utils import get_base_dir, get_logger
+
+log = get_logger(__name__)
 
 
 FOLDER = get_base_dir() / "gifs"
@@ -70,6 +72,7 @@ def convert_mp4_to_gif(path: str) -> None:
     clear()
     cli.print(f"[green]Converting: {mp4_path.name}[/green]")
 
+    log.info("Starting conversion....") # Log system
     try:
         palette_path = get_base_dir() / "palette.png"
 
@@ -108,6 +111,6 @@ def convert_mp4_to_gif(path: str) -> None:
         cli.print(f"\n[green]Saved to: {gif_path}[/green]")
 
     except ffmpeg.Error as e:
-        cli.print(f"[red]Conversion error: {e.stderr.decode()}[/red]")
+        log.error(f"Conversion error: {e}")
 
     sleep(0.7)
