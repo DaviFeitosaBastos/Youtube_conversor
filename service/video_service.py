@@ -1,8 +1,10 @@
 from ui.display import clear, cli, sleep
-from ui.validation import url_validate, yes_or_not
+from ui.validation import yes_or_not
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
-from utils import get_base_dir
+from utils import get_base_dir, get_logger
+
+log = get_logger(__name__)
 
 FOLDER = get_base_dir() / "videos"
 FOLDER.mkdir(exist_ok=True)
@@ -38,7 +40,12 @@ def download_high_res(url: str):
     
     clear()
     cli.print(f"[green]Downloading: {yt.title}[/green]")
-    stream.download(output_path=FOLDER)
+    try:
+        stream.download(output_path=FOLDER)
+    except Exception as e:
+        log.error(f"Download failed: {e}")
+        return
+    
     cli.print(f"\n[green]Saved to: {FOLDER}[/green]")
     sleep(0.6)
 
@@ -59,6 +66,12 @@ def download_low_res(url: str):
     
     clear()
     cli.print(f"[green]Downloading: {yt.title}[/green]")
-    stream.download(output_path=FOLDER)
+
+    try:
+        stream.download(output_path=FOLDER)
+    except Exception as e:
+        log.error(f"Download failed: {e}")
+        return
+    
     cli.print(f"\n[green]Saved to: {FOLDER}[/green]")
     sleep(0.7)
