@@ -6,7 +6,9 @@ from pytubefix import YouTube
 from pytubefix.exceptions import VideoUnavailable, RegexMatchError
 from urllib.parse import urlparse
 from pathlib import Path
+from utils import get_logger
 
+log = get_logger(__name__)
 
 def url_validate(url: str) -> bool:
     """
@@ -33,15 +35,16 @@ def url_validate(url: str) -> bool:
         _ = yt.title
         return True
     except VideoUnavailable:
-        cli.print("[red]Video unavailable[/red]")
+        log.error(f"Unvailable video: This video can not exist")
+        return False
     except RegexMatchError:
-        cli.print("[red]Invalid YouTube URL format[/red]")
+        log.error(f"Invalid Url: expected a valid URL")
+        return False
     except Exception as e:
-        cli.print(f"[red]Error: {e}[/red]")
-
-    sleep(0.6)
-    clear()
-    return False
+        log.error(f"Invalid Url: {e}")
+        sleep(0.6)
+        clear()
+        return False
 
 def yes_or_not(message: str) -> bool:
     """
@@ -78,8 +81,8 @@ def get_int_input() -> int | None:
         try:
             choice = int(input("\nChoice: "))
             return choice
-        except ValueError:
-            cli.print("[red]Invalid input! Please enter a number.[/red]")
+        except ValueError as e:
+            log.warning(f"Invalid input: expected a number {e}")
             sleep(0.5)
             return None
 
@@ -116,8 +119,9 @@ def pick_file(folder: Path, extension: str) -> Path | None:
             cli.print("[red]Invalid option![/red]")
             sleep(0.5)
         except ValueError:
-            cli.print("[red]Invalid input! Please enter a number.[/red]")
+            log.warning(f"Invalid input: expected number")
             sleep(0.5)
+            
             
 
 if __name__ == "__main__":
