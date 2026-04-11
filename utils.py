@@ -14,7 +14,10 @@ def get_base_dir():
 def get_logger(name: str) -> logging.Logger:
     logging.basicConfig(
         level=logging.INFO,
-        format="%(message)s",
-        handlers=[RichHandler(rich_tracebacks=True)]
+        format="%(asctime)s - %(levelname)s - %(message)s",
+        handlers=[
+            RichHandler(rich_tracebacks=True),
+            logging.FileHandler(get_base_dir() / "app.log")
+        ]
     )
     return logging.getLogger(name)
