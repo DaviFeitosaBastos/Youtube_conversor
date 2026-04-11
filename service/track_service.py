@@ -4,7 +4,10 @@ from pytubefix import YouTube
 from pytubefix.cli import on_progress
 from ui.display import cli, sleep, clear
 from ui.validation import yes_or_not
-from utils import get_base_dir 
+from utils import get_base_dir, get_logger
+
+
+log = get_logger(__name__)
 
 BASE_DIR = get_base_dir()
 FOLDER = BASE_DIR / "audios"
@@ -33,15 +36,26 @@ def download_track_youtube(url: str):
 
     clear()
     cli.print(f"[green]Downloading: {yt.title}[/green]")
-    stream.download(output_path=FOLDER)
+    try:
+        stream.download(output_path=FOLDER)
+    except Exception as e:
+        log.error(f"Download failed: {e}")
+        return
 
     cli.print("\n[yellow]Converting to mp3...[/yellow]")
-    subprocess.run([
-        FFMPEG, "-i", str(temp_path),
-        "-q:a", "0", "-map", "a",
-        str(final_path)
-    ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-    temp_path.unlink()
+    try:
+        subprocess.run([
+            FFMPEG, "-i", str(temp_path),
+            "-q:a", "0", "-map", "a",
+            str(final_path)
+        ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+        temp_path.unlink()
+    except subprocess.CalledProcessError as e:
+        log.error(f"Conversion failed {e}")
+        return
+    
     cli.print(f"[green]Saved to: {FOLDER}[/green]")
     sleep(0.7)
+    
