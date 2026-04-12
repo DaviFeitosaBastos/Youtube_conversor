@@ -29,10 +29,10 @@ def videos_downloader_menu():
     while True:
         clear()
         headers(HEADER1)
-        cli.print("[red]1 - Get higher resolution videos[/red]")
-        cli.print("[red]2 - Get lower resolution videos[/red]")
-        cli.print("[red]3 - Get the videos info[/red]")
-        cli.print("[red]0 - Back to main menu[/red]")
+        cli.print("[red]1[/red] - Get higher resolution videos")
+        cli.print("[red]2[/red] - Get lower resolution videos")
+        cli.print("[red]3[/red] - Get the videos info")
+        cli.print("[red]0[/red] - [yellow]Back to main menu[/yellow]")
 
         choice = get_int_input()
 
@@ -72,8 +72,8 @@ def tracks_downloader_menu():
     while True:
         clear()
         headers(HEADER2)
-        cli.print("[yellow]1 - Get the track from[/yellow] [red][YOUTUBE][/red]")
-        cli.print("[yellow]0 - Back to main menu[/yellow]")
+        cli.print("[purple]1[/purple] - Get the track from [red][[/red][red]YOU[/red]TUBE[red]][/red]")
+        cli.print("[purple]0[/purple] - [yellow]Back to main menu[/yellow]")
 
         choice = get_int_input()
 
@@ -104,8 +104,8 @@ def gif_converter_menu():
     while True:
         clear()
         headers(HEADER3)
-        cli.print("[cyan]1 - Convert MP4 to GIF[/cyan]")
-        cli.print("[cyan]0 - Back to main menu[/cyan]")
+        cli.print("[cyan]1[/cyan] - Convert MP4 to GIF")
+        cli.print("[cyan]0[/cyan] - [yellow]Back to main menu[/yellow]")
 
         choice = get_int_input()
 

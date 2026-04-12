@@ -1,4 +1,3 @@
-from rich.console import Console
 from rich.prompt import Prompt
 from rich.panel import Panel
 from ui.display import sleep, clear, cli
@@ -55,7 +54,7 @@ def yes_or_not(message: str) -> bool:
                         border_style="yellow", 
                         expand=False))
         
-        choice = Prompt.ask("\n[bold]Choice[/bold]", 
+        choice = Prompt.ask("\n[bold green]Choice[/bold green]", 
                             choices=["Y", "N", "y", "n"], 
                             show_choices=True).strip().upper()
         
@@ -79,7 +78,11 @@ def get_int_input() -> int | None:
     """
     while True:
         try:
-            choice = int(input("\nChoice: "))
+            choice = int(Prompt.ask(f"\n[green]Choice[/green]"))
+            clear()
+            if not choice == 0:
+                cli.print(f"\n[green]Option selected {choice}")
+                sleep(1)
             return choice
         except ValueError as e:
             log.warning(f"Invalid input: expected a number {e}")

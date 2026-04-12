@@ -63,9 +63,9 @@ def headers(header: str) -> None:
         cli.print("[red]=[/red]" * 32)
 
     elif header == "Track Download":
-        cli.print("[yellow]=[/yellow]" * 32)
-        cli.print(f"[yellow]{header.center(32)}[/yellow]" )
-        cli.print("[yellow]=[/yellow]" * 32)
+        cli.print("[purple]=[/purple]" * 32)
+        cli.print(f"[purple]{header.center(32)}[/purple]" )
+        cli.print("[purple]=[/purple]" * 32)
 
     elif header == "GIF Converter":
         cli.print("[cyan]=[/cyan]" * 32)
@@ -80,15 +80,15 @@ def headers(header: str) -> None:
         return None
 
 def main_menu():
-    cli.print("[green]1 - Download videos from[/green] [red][YOUTUBE][/red]")
-    cli.print("[green]2 - Get the audio tack from[/green] [red][YOUTUBE][/red]")
-    cli.print("[green]3 - Convert MP4 to GIF[/green]")
-    cli.print("[green]0 -[/green] [red]Exit[/red]")
+    cli.print("[green]1[/green] - Download videos from [red][[/red][red]YOU[/red]TUBE[red]][/red]")
+    cli.print("[green]2[/green] - Get the audio tack from [red][[/red][red]YOU[/red]TUBE[red]][/red]")
+    cli.print("[green]3[/green] - Convert MP4 to GIF")
+    cli.print("[green]0[/green] - [yellow]Exit[/yellow]")
 
 
 
 if __name__ == "__main__":
-    ...
+    main_menu()
     
     
         
