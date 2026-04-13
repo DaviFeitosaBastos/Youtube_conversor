@@ -2,7 +2,7 @@ from ui.display import clear, cli, sleep
 from ui.validation import yes_or_not, validate_path
 from pathlib import Path
 import ffmpeg
-from utils import get_base_dir, get_logger
+from utils.log_utils import get_base_dir, get_logger
 
 log = get_logger(__name__)
 

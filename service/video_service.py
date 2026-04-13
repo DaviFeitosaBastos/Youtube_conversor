@@ -2,7 +2,7 @@ from ui.display import clear, cli, sleep
 from ui.validation import yes_or_not
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
-from utils import get_base_dir, get_logger
+from utils.log_utils import get_base_dir, get_logger
 
 log = get_logger(__name__)
 

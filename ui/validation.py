@@ -5,7 +5,7 @@ from pytubefix import YouTube
 from pytubefix.exceptions import VideoUnavailable, RegexMatchError
 from urllib.parse import urlparse
 from pathlib import Path
-from utils import get_logger
+from utils.log_utils import get_logger
 
 log = get_logger(__name__)
 

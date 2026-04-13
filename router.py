@@ -4,7 +4,7 @@ from service.video_service import download_high_res, download_low_res, get_video
 from service.track_service import download_track_youtube
 from service.gif_service import convert_mp4_to_gif
 from ui.validation import pick_file
-from utils import get_base_dir
+from utils.log_utils import get_base_dir
 
 HEADER1 = "Video Download"
 HEADER2 = "Track Download"
