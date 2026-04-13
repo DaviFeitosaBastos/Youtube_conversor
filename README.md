@@ -23,6 +23,7 @@ Youtube_conversor/
 ├── router.py             # Menu routing and navigation logic
 ├── .gitignore            # Ignore uploads of files unnecessary
 ├── README.md             # You're reading this right now
+├── README.pt-br.md       # README in pt-BR
 ├── requirements.txt      # All denpendency 
 ├── __init__.py
 ├── gifs/
