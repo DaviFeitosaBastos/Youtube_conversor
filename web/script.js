@@ -32,7 +32,7 @@ function handleDownload() {
     ? `Processando ${fmt}... (backend não conectado ainda)`
     : `Processing ${fmt}... (backend not connected yet)`;
 
-  // TODO: conectar com o backend FastAPI
+  // ALL: connect to the backend FastAPI
   // fetch("/api/download", {
   //   method: "POST",
   //   headers: { "Content-Type": "application/json" },
