@@ -21,14 +21,21 @@ A Python CLI tool for downloading YouTube videos, audio tracks, and converting M
 Youtube_conversor/
 ├── main.py               # Application entry point
 ├── router.py             # Menu routing and navigation logic
-├── utils.py              # Shared utilities (get_base_dir)
-├── requirements.txt
+├── .gitignore            # Ignore uploads of files unnecessary
+├── README.md             # You're reading this right now
+├── requirements.txt      # All denpendency 
 ├── __init__.py
+├── gifs/
+│   └── # Here will be the gifs converted
+├── web/
+│   ├── __init__.py
+│   └── log_utils.py     # Shared utilities (get_base_dir)(logger)
 ├── service/
 │   ├── video_service.py  # Video download logic (high res, low res, info)
 │   ├── track_service.py  # Audio track download logic
 │   └── gif_service.py    # MP4 to GIF conversion logic
 └── ui/
+    ├── __init__.py
     ├── display.py        # CLI display helpers (headers, menus, loading)
     └── validation.py     # Input validation (URL, integers, yes/no, file picker)
 ```
@@ -122,6 +129,12 @@ rm -rf build/ dist/ main.spec
 | `yt-dlp` | Alternative download backend |
 | `ffmpeg-python` | MP4 to GIF conversion |
 | `rich` | Terminal UI styling |
+
+---
+## Roadmap
+- [ ] Run on web application
+- [ ] Make a GUI properly instead of terminal
+- [ ] Support for multiples providers beyond Youtube
 
 ---
 
