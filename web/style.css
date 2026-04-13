@@ -1,0 +1,252 @@
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Tokens ── */
+:root {
+  --bg:        #0e0e0f;
+  --surface:   #17171a;
+  --border:    rgba(255, 255, 255, 0.08);
+  --border-md: rgba(255, 255, 255, 0.16);
+  --text:      #f0eee8;
+  --muted:     #6b6a66;
+  --hint:      #3a3a3c;
+  --accent:    #e24b4a;
+  --green:     #3B6D11;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+}
+
+/* ── Base ── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+/* ── Layout ── */
+.wrapper {
+  width: 100%;
+  max-width: 560px;
+}
+
+/* ── Logo ── */
+.logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+.logo span { color: var(--accent); }
+
+/* ── Heading ── */
+.title {
+  font-family: 'Space Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+}
+
+/* ── Card ── */
+.card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+/* ── Input ── */
+.url-input {
+  width: 100%;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  padding: 10px 14px;
+  background: var(--hint);
+  border: 0.5px solid var(--border-md);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.url-input::placeholder { color: var(--muted); }
+.url-input:focus { border-color: rgba(255, 255, 255, 0.35); }
+
+/* ── File input ── */
+.file-input-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--hint);
+  border: 0.5px dashed var(--border-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  margin-bottom: 0;
+  transition: border-color 0.2s;
+}
+.file-input-label:hover { border-color: rgba(255, 255, 255, 0.35); }
+.file-input-label span {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.file-input-label input[type="file"] { display: none; }
+
+/* ── Format pills ── */
+.pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 0.5px solid var(--border-md);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.pill:hover { border-color: rgba(255, 255, 255, 0.3); color: var(--text); }
+.pill.active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+/* ── Button ── */
+.btn-download {
+  width: 100%;
+  margin-top: 1.25rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--text);
+  color: var(--bg);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.btn-download:hover { opacity: 0.88; }
+.btn-download:active { opacity: 0.75; }
+
+.btn-gif {
+  margin-top: 0;
+}
+
+/* ── Status ── */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+
+/* ── Section divider ── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 1rem 0;
+}
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: var(--border);
+}
+.section-divider span {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── GIF Converter ── */
+.gif-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.gif-col {
+  flex: 1;
+}
+.gif-col .card-label {
+  margin-bottom: 6px;
+}
+
+/* ── Author ── */
+.author-box {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 0.5px solid var(--border);
+}
+.author-box .name {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.author-box .name span {
+  color: var(--accent);
+}
+
+/* ── Top bar ── */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.top-bar .logo {
+  margin-bottom: 0;
+}
