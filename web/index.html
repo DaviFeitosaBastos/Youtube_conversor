@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YT Conversor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <div class="top-bar">
+        <p class="logo">yt<span>_</span>conversor <span>// v1.0.2</span></p>
+        <button id="langBtn" class="pill" onclick="toggleLang()">EN</button>
+      </div>
+
+      <h1 class="title">Youtube<br />Conversor</h1>
+      <p class="subtitle"
+        data-pt="Baixe vídeos e músicas diretamente do YouTube."
+        data-en="Download videos and music directly from YouTube.">
+        Baixe vídeos e músicas diretamente do YouTube.
+      </p>
+
+      <!-- ── Download section ── -->
+      <div class="card">
+        <p class="card-label"
+          data-pt="URL do vídeo"
+          data-en="Video URL">
+          URL do vídeo
+        </p>
+        <input
+          class="url-input"
+          type="text"
+          id="urlInput"
+          data-pt="https://youtube.com/watch?v=..."
+          data-en="https://youtube.com/watch?v=..."
+          placeholder="https://youtube.com/watch?v=..."
+        />
+      </div>
+
+      <div class="card">
+        <p class="card-label"
+          data-pt="Formato"
+          data-en="Format">
+          Formato
+        </p>
+        <div class="pills">
+          <button class="pill active" onclick="selectPill(this)">MP3</button>
+          <button class="pill" onclick="selectPill(this)">MP4</button>
+          <button class="pill" onclick="selectPill(this)">WAV</button>
+        </div>
+      </div>
+
+      <button class="btn-download" onclick="handleDownload()"
+        data-pt="→ Iniciar download"
+        data-en="→ Start download">
+        → Iniciar download
+      </button>
+
+      <div class="status">
+        <div class="status-dot"></div>
+        <span id="statusText"
+          data-pt="Pronto para converter."
+          data-en="Ready to convert.">
+          Pronto para converter.
+        </span>
+      </div>
+
+      <!-- ── GIF section ── -->
+      <div class="section-divider">
+        <span data-pt="MP4 → GIF" data-en="MP4 → GIF">MP4 → GIF</span>
+      </div>
+
+      <div class="card">
+        <p class="card-label"
+          data-pt="Arquivo MP4"
+          data-en="MP4 file">
+          Arquivo MP4
+        </p>
+        <label class="file-input-label" for="gifFile">
+          <span id="fileLabel"
+            data-pt="Selecionar arquivo .mp4"
+            data-en="Select .mp4 file">
+            Selecionar arquivo .mp4
+          </span>
+          <input type="file" id="gifFile" accept=".mp4"
+            onchange="document.getElementById('fileLabel').textContent = this.files[0]?.name || (lang === 'pt' ? 'Selecionar arquivo .mp4' : 'Select .mp4 file')" />
+        </label>
+
+        <div class="gif-row">
+          <div class="gif-col">
+            <p class="card-label"
+              data-pt="Início"
+              data-en="Start">
+              Início
+            </p>
+            <input class="url-input" type="text" id="gifStart" placeholder="00:00:00" />
+          </div>
+          <div class="gif-col">
+            <p class="card-label"
+              data-pt="Fim"
+              data-en="End">
+              Fim
+            </p>
+            <input class="url-input" type="text" id="gifEnd" placeholder="00:00:10" />
+          </div>
+        </div>
+
+        <div class="gif-row">
+          <div class="gif-col">
+            <p class="card-label"
+              data-pt="FPS (padrão: 10)"
+              data-en="FPS (default: 10)">
+              FPS (padrão: 10)
+            </p>
+            <input class="url-input" type="number" id="gifFps" placeholder="10" />
+          </div>
+          <div class="gif-col">
+            <p class="card-label"
+              data-pt="Largura px (padrão: 480)"
+              data-en="Width px (default: 480)">
+              Largura px (padrão: 480)
+            </p>
+            <input class="url-input" type="number" id="gifWidth" placeholder="480" />
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-download btn-gif"
+        data-pt="→ Converter para GIF"
+        data-en="→ Convert to GIF">
+        → Converter para GIF
+      </button>
+
+      <!-- ── Author ── -->
+      <div class="author-box">
+        <div class="name">
+          Author:<span> Davi Feitosa Bastos</span>
+        </div>
+      </div>
+
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
