@@ -74,6 +74,10 @@ pip install -r requirements.txt
 ## Usage
 
 ```bash
+# linux
+python3 main.py
+
+# windows
 python main.py
 ```
 
