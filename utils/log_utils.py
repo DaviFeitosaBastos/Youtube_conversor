@@ -8,7 +8,7 @@ from pathlib import Path
 def get_base_dir():
     if hasattr(sys, '_MEIPASS'):
         return Path(sys.executable).parent
-    return Path(__file__).parent
+    return Path(__file__).resolve().parents[1]
 
 
 def get_logger(name: str) -> logging.Logger:
