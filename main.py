@@ -4,7 +4,6 @@ from ui.display import cli, clear, sleep, headers,main_menu,loading, print_exit
 from ui.validation import get_int_input
 # ROUTER import
 from router import routes
-import logging 
 
 
 def main():
