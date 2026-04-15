@@ -13,6 +13,8 @@ def main():
     HEADER = "Main menu"
 
     loading()
+
+    # Run the program loop
     while True:      
         clear()
         headers(HEADER)
