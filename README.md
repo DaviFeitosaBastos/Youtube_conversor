@@ -153,3 +153,4 @@ rm -rf build/ dist/ main.spec
 ## Author
 
 [DaviFeitosaBastos](https://github.com/DaviFeitosaBastos)
+
