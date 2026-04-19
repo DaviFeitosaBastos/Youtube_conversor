@@ -1,7 +1,7 @@
 # Display imports
 from ui.display import cli, clear, sleep, headers,main_menu,loading, print_exit
 # Validation imports
-from ui.validation import get_int_input
+from ui.validation import get_int_input, main_input_validated
 # ROUTER import
 from router import routes
 
@@ -12,7 +12,8 @@ def main():
     """
     HEADER = "Main menu"
 
-    loading()
+    # Loading desativado para testes
+    """ loading() """
 
     # Run the program loop
     while True:      
@@ -20,18 +21,17 @@ def main():
         headers(HEADER)
         main_menu()  
 
-        choice = get_int_input()
+        input_choice = get_int_input()
 
-        if choice == None:
+        if input_choice == None:
             continue
-        elif not choice in [1, 2, 3, 0]:
-            cli.print("[red]Invalid option![/red]")
-            sleep(0.5)
-            continue
-        if choice == 0:
+        
+        choice = main_input_validated(input_choice)
+
+        if input_choice == 0:
             print_exit()
             break
-        
+
         # Dispatch to the selected menu handler
         handler = routes.get(choice)
         if handler:

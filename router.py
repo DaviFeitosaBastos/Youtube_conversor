@@ -1,5 +1,5 @@
 from ui.display import cli, clear, sleep, headers
-from ui.validation import yes_or_not, get_int_input, url_validate
+from ui.validation import yes_or_not, get_int_input, url_validate, vd_input_validated, track_input_validated, gif_input_validated
 from service.video_service import download_high_res, download_low_res, get_video_info
 from service.track_service import download_track_youtube
 from service.gif_service import convert_mp4_to_gif
@@ -34,19 +34,18 @@ def videos_downloader_menu():
         cli.print("[red]3[/red] - Get the videos info")
         cli.print("[red]0[/red] - [yellow]Back to main menu[/yellow]")
 
-        choice = get_int_input()
+        input_choice = get_int_input()
 
-        if choice == None:
+        if input_choice == None:
             continue
-        elif not choice in [1,2,3,0]:
-            cli.print("[red]Invalid option![/red]")
-            sleep(0.5)
-            continue
-        if choice == 0:
+
+        choice = vd_input_validated(input_choice)
+
+        if input_choice == 0:
             clear()
             if yes_or_not("Wanna go back [Y/N]: "):
                 break
-            continue  # ← se o user responde "N", volta ao menu
+            continue  # ← if the user answer "N", then he cames back to main
 
         handler = sub_routes.get(choice)
         if handler:
@@ -75,16 +74,14 @@ def tracks_downloader_menu():
         cli.print("[purple]1[/purple] - Get the track from [red][[/red][red]YOU[/red]TUBE[red]][/red]")
         cli.print("[purple]0[/purple] - [yellow]Back to main menu[/yellow]")
 
-        choice = get_int_input()
+        input_choice = get_int_input()
 
-        if choice == None:
-            continue
-        elif not choice in [1,0]:
-            cli.print("[red]Invalid option![/red]")
-            sleep(0.5)
+        if input_choice == None:
             continue
 
-        if choice == 0:
+        choice = track_input_validated(input_choice)
+
+        if input_choice == 0:
             clear()
             if yes_or_not("Wanna go back [Y/N]: "):
                 break
@@ -107,16 +104,11 @@ def gif_converter_menu():
         cli.print("[cyan]1[/cyan] - Convert MP4 to GIF")
         cli.print("[cyan]0[/cyan] - [yellow]Back to main menu[/yellow]")
 
-        choice = get_int_input()
+        input_choice = get_int_input()
 
-        if choice is None:
-            continue
-        elif choice not in [1, 0]:
-            cli.print("[red]Invalid option![/red]")
-            sleep(0.5)
-            continue
+        choice = gif_input_validated(input_choice)
 
-        if choice == 0:
+        if input_choice == 0:
             clear()
             if yes_or_not("Wanna go back [Y/N]: "):
                 break

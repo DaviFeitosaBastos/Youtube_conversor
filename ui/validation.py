@@ -80,9 +80,6 @@ def get_int_input() -> int | None:
         try:
             choice = int(Prompt.ask(f"\n[green]Choice[/green]"))
             clear()
-            if not choice == 0:
-                cli.print(f"\n[green]Option selected {choice}")
-                sleep(1)
             return choice
         except ValueError as e:
             log.warning(f"Invalid input: expected a number {e}")
@@ -124,8 +121,55 @@ def pick_file(folder: Path, extension: str) -> Path | None:
         except ValueError:
             log.warning(f"Invalid input: expected number")
             sleep(0.5)
-            
-            
+
+
+def main_input_validated(input_choice: int) -> int | None:
+
+    if not input_choice in [1, 2, 3, 0]:
+        cli.print("[red]Invalid option![/red]")
+        sleep(0.5)
+        return None
+
+    if not input_choice == 0:
+        cli.print(f"\n[green]Option selected {input_choice}")
+        sleep(1)
+        return input_choice 
+
+def vd_input_validated(input_choice: int) -> int | None:
+
+    if not input_choice in [1, 2, 3, 0]:
+        cli.print("[red]Invalid option![/red]")
+        sleep(0.5)
+        return None
+
+    if not input_choice == 0:
+        cli.print(f"\n[green]Option selected {input_choice}")
+        sleep(1)
+        return input_choice 
+    
+def track_input_validated(input_choice: int) -> int | None:
+
+    if not input_choice in [1, 0]:
+        cli.print("[red]Invalid option![/red]")
+        sleep(0.5)
+        return None
+
+    if not input_choice == 0:
+        cli.print(f"\n[green]Option selected {input_choice}")
+        sleep(1)
+        return input_choice 
+
+def gif_input_validated(input_choice: int) -> int | None:
+
+    if not input_choice in [1, 0]:
+        cli.print("[red]Invalid option![/red]")
+        sleep(0.5)
+        return None
+
+    if not input_choice == 0:
+        cli.print(f"\n[green]Option selected {input_choice}")
+        sleep(1)
+        return input_choice 
 
 if __name__ == "__main__":
     yes_or_not("Wanna go back [Y/N]")
