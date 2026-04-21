@@ -3,6 +3,7 @@ from ui.validation import yes_or_not
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
 from utils.log_utils import get_base_dir, get_logger
+from utils.progress import make_progress_callback
 import subprocess
 import shutil
 
@@ -62,23 +63,23 @@ def get_video_info(url: str) -> None:
 
     
 def download_high_res(url: str):
-    """
-    Downloads the highest resolution video with audio using ffmpeg to merge.
-    """
     FFMPEG = shutil.which("ffmpeg")
     if not FFMPEG:
-        cli.print("[red]ffmpeg not found! Please install it and add to PATH.[/red]")
+        cli.print("[red]ffmpeg not found![/red]")
         return
 
-    yt = YouTube(url, on_progress_callback=on_progress)
+    cli.print("[yellow]DEBUG: criando objeto YouTube...[/yellow]")
+    yt = YouTube(url, on_progress_callback=make_progress_callback())
 
-    # Pega a melhor stream de vídeo (sem áudio) — até 4K
+    cli.print("[yellow]DEBUG: buscando streams...[/yellow]")
     video_stream = yt.streams.filter(adaptive=True, file_extension="mp4", only_video=True).order_by("resolution").last()
-    # Pega a melhor stream de áudio
     audio_stream = yt.streams.filter(adaptive=True, only_audio=True).order_by("abr").last()
 
+    cli.print(f"[yellow]DEBUG: video_stream = {video_stream}[/yellow]")
+    cli.print(f"[yellow]DEBUG: audio_stream = {audio_stream}[/yellow]")
+
     if video_stream is None or audio_stream is None:
-        cli.print("[red]No stream found for this video.[/red]")
+        cli.print("[red]No stream found![/red]")
         return
 
     # Paths temporários e final
@@ -102,6 +103,7 @@ def download_high_res(url: str):
         return
 
     cli.print("[green]Downloading audio...[/green]")
+    sleep(1)
     try:
         audio_stream.download(output_path=str(FOLDER), filename=temp_audio.name)
     except Exception as e:
@@ -131,7 +133,7 @@ def download_high_res(url: str):
 
 
 def download_low_res(url: str):
-    yt = YouTube(url, on_progress_callback=on_progress)
+    yt = YouTube(url, on_progress_callback=make_progress_callback())
     stream = yt.streams.get_lowest_resolution()
 
     if stream is None:

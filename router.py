@@ -36,19 +36,19 @@ def videos_downloader_menu():
 
         input_choice = get_int_input()
 
-        if input_choice == None:
-            continue
-
-        choice = vd_input_validated(input_choice)
-
-        if not isinstance(choice, int):
+        if input_choice is None:
             continue
 
         if input_choice == 0:
             clear()
             if yes_or_not("Wanna go back [Y/N]: "):
                 break
-            continue  # ← if the user answer "N", then he cames back to main
+            continue
+
+        choice = vd_input_validated(input_choice)
+
+        if not isinstance(choice, int):
+            continue
 
         handler = sub_routes.get(choice)
         if handler:
@@ -82,22 +82,23 @@ def tracks_downloader_menu():
         if input_choice is None:
             continue
 
-        choice = track_input_validated(input_choice)
-
-        if not isinstance(choice, int):
-            continue
-
         if input_choice == 0:
             clear()
             if yes_or_not("Wanna go back [Y/N]: "):
                 break
             continue
 
+        choice = vd_input_validated(input_choice)
+
+        if not isinstance(choice, int):
+            continue
+
         handler = sub_routes.get(choice)
         if handler:
             url = input("\nURL: ")
-            if url_validate(url):
-                handler(url)
+            if not url_validate(url):
+                continue
+            handler(url)
 
 def gif_converter_menu():
     sub_routes = {
@@ -115,15 +116,15 @@ def gif_converter_menu():
         if input_choice is None:
             continue
 
-        choice = gif_input_validated(input_choice)
-
-        if not isinstance(choice, int):
-            continue
-
-        if input_choice == 0:
+        if input_choice == 0:  # ← check ANTES do validador
             clear()
             if yes_or_not("Wanna go back [Y/N]: "):
                 break
+            continue
+
+        choice = gif_input_validated(input_choice)
+
+        if not isinstance(choice, int):
             continue
 
         handler = sub_routes.get(choice)

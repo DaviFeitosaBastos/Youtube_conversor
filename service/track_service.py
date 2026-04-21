@@ -5,6 +5,7 @@ from pytubefix.cli import on_progress
 from ui.display import cli, sleep, clear
 from ui.validation import yes_or_not
 from utils.log_utils import get_base_dir, get_logger
+from utils.progress import make_progress_callback
 
 
 log = get_logger(__name__)
@@ -21,7 +22,7 @@ def download_track_youtube(url: str):
         cli.print("[red]ffmpeg not found! Please install it and add to PATH.[/red]")
         return
 
-    yt = YouTube(url, on_progress_callback=on_progress)
+    yt = YouTube(url, on_progress_callback=make_progress_callback())
     stream = yt.streams.get_audio_only()
 
     # Verifica se encontrou stream

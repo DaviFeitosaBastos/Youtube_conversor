@@ -4,6 +4,7 @@ from pathlib import Path
 import ffmpeg
 from utils.log_utils import get_base_dir, get_logger
 
+
 log = get_logger(__name__)
 
 
