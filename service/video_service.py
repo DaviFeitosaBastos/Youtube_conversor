@@ -3,6 +3,8 @@ from ui.validation import yes_or_not
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
 from utils.log_utils import get_base_dir, get_logger
+import subprocess
+import shutil
 
 log = get_logger(__name__)
 
@@ -61,36 +63,81 @@ def get_video_info(url: str) -> None:
     
 def download_high_res(url: str):
     """
-    Downloads the highest resolution video.
+    Downloads the highest resolution video with audio using ffmpeg to merge.
     """
-    yt = YouTube(url, on_progress_callback=on_progress)
-    stream = yt.streams.get_highest_resolution()
-    video_path = get_base_dir() / stream.default_filename
+    FFMPEG = shutil.which("ffmpeg")
+    if not FFMPEG:
+        cli.print("[red]ffmpeg not found! Please install it and add to PATH.[/red]")
+        return
 
-    if video_path.exists():
+    yt = YouTube(url, on_progress_callback=on_progress)
+
+    # Pega a melhor stream de vídeo (sem áudio) — até 4K
+    video_stream = yt.streams.filter(adaptive=True, file_extension="mp4", only_video=True).order_by("resolution").last()
+    # Pega a melhor stream de áudio
+    audio_stream = yt.streams.filter(adaptive=True, only_audio=True).order_by("abr").last()
+
+    if video_stream is None or audio_stream is None:
+        cli.print("[red]No stream found for this video.[/red]")
+        return
+
+    # Paths temporários e final
+    temp_video = FOLDER / f"temp_video_{yt.video_id}.mp4"
+    temp_audio = FOLDER / f"temp_audio_{yt.video_id}.mp4"
+    final_path = FOLDER / f"{yt.title}.mp4"
+
+    if final_path.exists():
         clear()
-        cli.print(f"[yellow]Video already exists: {video_path.name}[/yellow]")
+        cli.print(f"[yellow]Video already exists: {final_path.name}[/yellow]")
         if not yes_or_not("\nType Y to return or N to quit "):
             exit()
         return
-    
+
     clear()
-    cli.print(f"[green]Downloading: {yt.title}[/green]")
+    cli.print(f"[green]Downloading video ({video_stream.resolution}): {yt.title}[/green]")
     try:
-        stream.download(output_path=FOLDER)
+        video_stream.download(output_path=str(FOLDER), filename=temp_video.name)
     except Exception as e:
-        log.error(f"Download failed: {e}")
+        log.error(f"Video download failed: {e}")
         return
-    
+
+    cli.print("[green]Downloading audio...[/green]")
+    try:
+        audio_stream.download(output_path=str(FOLDER), filename=temp_audio.name)
+    except Exception as e:
+        log.error(f"Audio download failed: {e}")
+        return
+
+    cli.print("[yellow]Merging video and audio...[/yellow]")
+    try:
+        subprocess.run([
+            FFMPEG,
+            "-i", str(temp_video),
+            "-i", str(temp_audio),
+            "-c:v", "copy",
+            "-c:a", "aac",
+            str(final_path)
+        ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except subprocess.CalledProcessError as e:
+        log.error(f"Merge failed: {e}")
+        return
+    finally:
+        # Sempre apaga os temporários, mesmo se falhar
+        temp_video.unlink(missing_ok=True)
+        temp_audio.unlink(missing_ok=True)
+
     cli.print(f"\n[green]Saved to: {FOLDER}[/green]")
     sleep(0.6)
 
+
 def download_low_res(url: str):
-    """
-    Downloads the lowest resolution video.
-    """
     yt = YouTube(url, on_progress_callback=on_progress)
     stream = yt.streams.get_lowest_resolution()
+
+    if stream is None:
+        cli.print("[red]No stream found for this video.[/red]")
+        return
+
     video_path = FOLDER / stream.default_filename
 
     if video_path.exists():
@@ -99,15 +146,14 @@ def download_low_res(url: str):
         if not yes_or_not("\nType Y to return or N to quit "):
             exit()
         return
-    
+
     clear()
     cli.print(f"[green]Downloading: {yt.title}[/green]")
-
     try:
-        stream.download(output_path=FOLDER)
+        stream.download(output_path=str(FOLDER))  # str() aqui
     except Exception as e:
         log.error(f"Download failed: {e}")
         return
-    
+
     cli.print(f"\n[green]Saved to: {FOLDER}[/green]")
     sleep(0.7)
