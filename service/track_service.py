@@ -24,6 +24,11 @@ def download_track_youtube(url: str):
     yt = YouTube(url, on_progress_callback=on_progress)
     stream = yt.streams.get_audio_only()
 
+    # Verifica se encontrou stream
+    if stream is None:
+        cli.print("[red]No audio stream found for this video.[/red]")
+        return
+
     temp_path = FOLDER / stream.default_filename
     final_path = temp_path.with_suffix(".mp3")
 
@@ -37,7 +42,7 @@ def download_track_youtube(url: str):
     clear()
     cli.print(f"[green]Downloading: {yt.title}[/green]")
     try:
-        stream.download(output_path=FOLDER)
+        stream.download(output_path=str(FOLDER))  # str() aqui
     except Exception as e:
         log.error(f"Download failed: {e}")
         return
@@ -55,7 +60,7 @@ def download_track_youtube(url: str):
     except subprocess.CalledProcessError as e:
         log.error(f"Conversion failed {e}")
         return
-    
+
     cli.print(f"[green]Saved to: {FOLDER}[/green]")
     sleep(0.7)
     
