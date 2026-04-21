@@ -88,7 +88,7 @@ def get_int_input() -> int | None:
 
 
 
-def validate_path(path: str) -> bool:
+def validate_path(path: str) -> bool | None:
     p = Path(path)
     if p.exists():
         return True

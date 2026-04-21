@@ -28,6 +28,9 @@ def main():
         
         choice = main_input_validated(input_choice)
 
+        if choice is not int:
+            continue
+
         if input_choice == 0:
             print_exit()
             break

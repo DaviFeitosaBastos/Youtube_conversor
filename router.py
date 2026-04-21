@@ -41,6 +41,9 @@ def videos_downloader_menu():
 
         choice = vd_input_validated(input_choice)
 
+        if choice is not int:
+            continue
+
         if input_choice == 0:
             clear()
             if yes_or_not("Wanna go back [Y/N]: "):
@@ -76,10 +79,13 @@ def tracks_downloader_menu():
 
         input_choice = get_int_input()
 
-        if input_choice == None:
+        if input_choice is None:
             continue
 
         choice = track_input_validated(input_choice)
+
+        if choice is not int:
+            continue
 
         if input_choice == 0:
             clear()
@@ -106,7 +112,13 @@ def gif_converter_menu():
 
         input_choice = get_int_input()
 
+        if input_choice is None:
+            continue
+
         choice = gif_input_validated(input_choice)
+
+        if choice is not int:
+            continue
 
         if input_choice == 0:
             clear()
