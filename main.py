@@ -15,7 +15,7 @@ def main():
     HEADER = "Main menu"
 
     # Loading desativado para testes
-    """ loading() """
+    loading()
 
     # Run the program loop
     while True:      
