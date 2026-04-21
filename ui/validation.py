@@ -125,51 +125,45 @@ def pick_file(folder: Path, extension: str) -> Path | None:
 
 def main_input_validated(input_choice: int) -> int | None:
 
-    if not input_choice in [1, 2, 3, 0]:
-        cli.print("[red]Invalid option![/red]")
-        sleep(0.5)
-        return None
-
-    if not input_choice == 0:
-        cli.print(f"\n[green]Option selected {input_choice}")
-        sleep(1)
-        return input_choice 
-
-def vd_input_validated(input_choice: int) -> int | None:
-
-    if not input_choice in [1, 2, 3, 0]:
-        cli.print("[red]Invalid option![/red]")
-        sleep(0.5)
-        return None
-
-    if not input_choice == 0:
+    if input_choice in [1, 2, 3, 0]: 
         cli.print(f"\n[green]Option selected {input_choice}")
         sleep(1)
         return input_choice 
     
-def track_input_validated(input_choice: int) -> int | None:
+    cli.print(f"[red]Invalid option")
+    sleep(1)
 
-    if not input_choice in [1, 0]:
-        cli.print("[red]Invalid option![/red]")
-        sleep(0.5)
-        return None
 
-    if not input_choice == 0:
+
+def vd_input_validated(input_choice: int) -> int | None:
+
+    if input_choice in [1, 2, 3, 0]: 
         cli.print(f"\n[green]Option selected {input_choice}")
         sleep(1)
         return input_choice 
+    
+    cli.print(f"[red]Invalid option")
+    sleep(1) 
+    
+def track_input_validated(input_choice: int) -> int | None:
+
+    if input_choice in [1, 0]: 
+        cli.print(f"\n[green]Option selected {input_choice}")
+        sleep(1)
+        return input_choice 
+    
+    cli.print(f"[red]Invalid option")
+    sleep(1) 
 
 def gif_input_validated(input_choice: int) -> int | None:
 
-    if not input_choice in [1, 0]:
-        cli.print("[red]Invalid option![/red]")
-        sleep(0.5)
-        return None
-
-    if not input_choice == 0:
+    if input_choice in [1, 2, 3, 0]: 
         cli.print(f"\n[green]Option selected {input_choice}")
         sleep(1)
         return input_choice 
+    
+    cli.print(f"[red]Invalid option")
+    sleep(1)
 
 if __name__ == "__main__":
     yes_or_not("Wanna go back [Y/N]")

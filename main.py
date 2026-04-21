@@ -28,12 +28,12 @@ def main():
         
         choice = main_input_validated(input_choice)
 
-        if choice is not int:
+        if not isinstance(choice, int):
             continue
 
         if input_choice == 0:
             print_exit()
-            break
+            exit()
 
         # Dispatch to the selected menu handler
         handler = routes.get(choice)

@@ -41,7 +41,7 @@ def videos_downloader_menu():
 
         choice = vd_input_validated(input_choice)
 
-        if choice is not int:
+        if not isinstance(choice, int):
             continue
 
         if input_choice == 0:
@@ -84,7 +84,7 @@ def tracks_downloader_menu():
 
         choice = track_input_validated(input_choice)
 
-        if choice is not int:
+        if not isinstance(choice, int):
             continue
 
         if input_choice == 0:
@@ -117,7 +117,7 @@ def gif_converter_menu():
 
         choice = gif_input_validated(input_choice)
 
-        if choice is not int:
+        if not isinstance(choice, int):
             continue
 
         if input_choice == 0:
