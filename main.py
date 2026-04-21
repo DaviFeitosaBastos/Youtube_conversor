@@ -4,6 +4,8 @@ from ui.display import cli, clear, sleep, headers,main_menu,loading, print_exit
 from ui.validation import get_int_input, main_input_validated
 # ROUTER import
 from router import routes
+# SYSTEM import
+import sys
 
 
 def main():
@@ -33,7 +35,7 @@ def main():
 
         if input_choice == 0:
             print_exit()
-            exit()
+            sys.exit()
 
         # Dispatch to the selected menu handler
         handler = routes.get(choice)
